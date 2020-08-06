@@ -36,6 +36,14 @@ public class RegistroController {
 
 	}
 
+	public void alterarListaAbertos() {
+		listaRegistro = repo.findByStatus(false);
+	}
+
+	public void alterarListaConcluidos() {
+		listaRegistro = repo.findByStatus(true);
+	}
+
 	public void updateStatus(Registro obj) {
 		obj.setStatus((!obj.getStatus()) ? true : false);
 		repo.save(obj);

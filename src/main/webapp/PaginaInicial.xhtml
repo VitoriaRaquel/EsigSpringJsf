@@ -15,23 +15,23 @@
 			heigth="100px" />
 		<h:form id="form">
 
-				<p:panelGrid columns="3" style="heigth:100px; width:500px;">
+			<p:panelGrid columns="3" style="heigth:100px; width:500px; border: 0px;">
 
-					<p:commandLink
-						action="#{registroController.MudarListaStatusFeito(tarefaController.listaTarefas)}"
-						update="form" style="width:50px;">
-						<img src="resources/imagens/duplovisto.png" />
-					</p:commandLink>
+				<p:commandLink
+					action="#{registroController.MudarListaStatusFeito(tarefaController.listaTarefas)}"
+					update="form" style="width:50px;">
+					<img src="resources/imagens/duplovisto.png" />
+				</p:commandLink>
 
-					<p:inputText id="descricao" placeholder="O que precisa ser feito?"
-						value="#{registroController.registro.descricao}"
-						style="margin-left:40px;width:200px" />
+				<p:inputText id="descricao" placeholder="O que precisa ser feito?"
+					value="#{registroController.registro.descricao}"
+					style="margin-left:10px;width:200px" />
 
-					<p:commandButton value="Adicionar"
-						action="#{registroController.insert}" update="form"
-						style="margin-left:5px; width:50px;" />
+				<p:commandButton value="Adicionar"
+					action="#{registroController.insert}" update="form"
+					style="margin-left:5px; width:50px;" />
 
-				</p:panelGrid>
+			</p:panelGrid>
 
 			<p:dataTable value="#{registroController.listaRegistro}" var="obj"
 				style="width:500px">
@@ -62,6 +62,27 @@
 					</p:commandLink>
 				</p:column>
 			</p:dataTable>
+
+
+			<p:toolbar style="width:500px; background:#363636">
+
+				<f:facet name="left">
+					<div id="testeSize" style="font-size:12px;" >
+						<h:outputText id="display"
+							value="5"
+							style="margin-right:20px;margin-left:5px;" update="form" />
+						<p:commandButton value="Todos" action="#{registroController.init}"
+							style="margin-right:10px;" update="form" />
+						<p:commandButton value="Abertos" action="#{registroController.alterarListaAbertos}"
+							style="margin-right:10px;" update="form" />
+						<p:commandButton value="Concluídos" action="#{registroController.alterarListaConcluidos}"
+							style="margin-right:25px;" update="form" />
+						<p:commandButton value="Apagar Concluídos"
+							update="form" style="margin-right:8px;"/>
+					</div>
+				</f:facet>
+
+			</p:toolbar>
 
 		</h:form>
 	</div>
