@@ -28,24 +28,22 @@ public class RegistroController {
 
 	public void insert() {
 		if (registro.getDescricao() != null && registro.getDescricao().trim() != "") {
-			if (registro.getId() == null) {
-				registro.setStatus(false);
-			}
+			registro.setStatus(false);
 			repo.save(registro);
-			this.listaRegistro.add(registro);
 			registro = new Registro();
+			init();
 		}
+
 	}
 
 	public void updateStatus(Registro obj) {
-
+		obj.setStatus((!obj.getStatus()) ? true : false);
+		repo.save(obj);
 	}
 
 	public void deleteById(Integer id) {
-
-	}
-
-	public void update(Registro obj) {
+		repo.delete(id);
+		init();
 	}
 
 	public Registro getRegistro() {
