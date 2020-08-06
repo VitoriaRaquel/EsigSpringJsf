@@ -11,26 +11,65 @@
 
 <h:body>
 	<div style="width:550px; height:800; margin: 0 auto 0 auto;">
-		<h:form id="form">
+		 <p:graphicImage library="imagens" name="esig.png"  width="500px" heigth="100px"/>
+        <h:form id="form">
 
-			<p:panel style="width:550px ">
-				<h:panelGrid columns="3" style="heigth:100px">
+            <p:panel style="width:500px " >
+                <h:panelGrid columns="3" style="heigth:100px">
 
-					<p:commandLink update="form" style="margin-right:-5px">
-						<img src="resources/imagens/duplovisto.png" />
-					</p:commandLink>
+                    <p:commandLink action="#{registroController.MudarListaStatusFeito(tarefaController.listaTarefas)}" update="form" style="margin-right:-5px">
+                        <img src="resources/imagens/duplovisto.png"/>
+                    </p:commandLink>
 
-					<p:inputText id="descricao" placeholder="O que precisa ser feito?"
-						value="#{registroController.registro.descricao}"
-						style="margin-left:30px;width:300px" />
+                    <p:inputText id="descricao" placeholder="O que precisa ser feito?" value="#{registroController.registro.descricao}" style="margin-left:30px;width:300px"/>
 
-					<p:commandButton value="Adicionar"
-						action="#{registroController.insert}" update="form"
-						style="margin-left:10px" />
+                    <p:commandButton value="Adicionar"
+                                     action="#{registroController.insert}" update="form" style="margin-left:10px" />
 
-				</h:panelGrid>
-			</p:panel>
-		</h:form>
+                </h:panelGrid>
+            </p:panel>
+
+            <p:dataTable  value="#{registroController.listaRegistro}" var="obj" style="width:500px">
+                <p:column style="width:70px">
+
+                    <p:commandLink 	action="#{registroController.updateStatus(obj)}" update="form">
+                        <h:panelGroup rendered="#{obj.status eq false}">
+                            <img src="resources/imagens/aberto_icon.png"
+                                 onmouseover="this.src='resources/imagens/ok_circle_icon.png'"
+                                 onmouseout="this.src='resources/imagens/aberto_icon.png'" />
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{obj.status eq true}">
+                            <img src="resources/imagens/ok_circle_icon.png" />
+                        </h:panelGroup>
+                    </p:commandLink>
+                </p:column>
+
+                <p:column>
+                    <p:outputLabel value="#{obj.descricao}" />
+                </p:column>
+
+
+                <p:column style="width:70px">
+                    <p:commandLink
+                            action="#{registroController.update(obj)}"
+                            update="form">
+                        <img src="resources/imagens/edit_icon.png"/>
+                    </p:commandLink>
+                </p:column>
+
+
+                <p:column style="width:60px">
+                    <p:commandLink
+                            action="#{registroController.deleteById(obj.id)}"
+                            update="form">
+                        <img src="resources/imagens/lixeira.png"/>
+                    </p:commandLink>
+                </p:column>
+
+            </p:dataTable>
+
+
+        </h:form>
 	</div>
 </h:body>
 
