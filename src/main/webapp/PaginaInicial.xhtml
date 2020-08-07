@@ -73,12 +73,12 @@
 							style="margin-right:20px;margin-left:5px;" update="form" />
 						<p:commandButton value="Todos" action="#{registroController.init}"
 							style="margin-right:10px;" update="form" />
-						<p:commandButton value="Abertos" action="#{registroController.alterarListaAbertos}"
+						<p:commandButton value="Abertos" action="#{registroController.changeListActive}"
 							style="margin-right:10px;" update="form" />
-						<p:commandButton value="Concluídos" action="#{registroController.alterarListaConcluidos}"
+						<p:commandButton value="Concluídos" action="#{registroController.changeListCompleted}"
 							style="margin-right:25px;" update="form" />
-						<p:commandButton value="Apagar Concluídos"
-							update="form" style="margin-right:8px;"/>
+						<p:commandButton value="Apagar Concluídos" action="#{registroController.deleteAllStatusCompleted}" 
+						 update="form" style="margin-right:8px;"/>
 					</div>
 				</f:facet>
 

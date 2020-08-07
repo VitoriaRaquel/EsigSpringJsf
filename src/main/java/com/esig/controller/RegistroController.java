@@ -36,11 +36,16 @@ public class RegistroController {
 
 	}
 
-	public void alterarListaAbertos() {
+	public void deleteAllStatusCompleted() {
+		this.repo.delete((repo.findByStatus(true)));
+		changeListCompleted();
+	}
+
+	public void changeListActive() {
 		listaRegistro = repo.findByStatus(false);
 	}
 
-	public void alterarListaConcluidos() {
+	public void changeListCompleted() {
 		listaRegistro = repo.findByStatus(true);
 	}
 
