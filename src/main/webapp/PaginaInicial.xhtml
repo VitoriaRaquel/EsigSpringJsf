@@ -14,22 +14,15 @@
 		<p:graphicImage library="imagens" name="esig.png" width="500px"
 			heigth="100px" />
 		<h:form id="form">
+			<p:panelGrid columns="2" style="heigth:100px; width:500px; ">
 
-			<p:panelGrid columns="3" style="heigth:100px; width:500px; border: 0px;">
-
-				<p:commandLink
-					action="#{registroController.MudarListaStatusFeito(tarefaController.listaTarefas)}"
-					update="form" style="width:50px;">
-					<img src="resources/imagens/duplovisto.png" />
-				</p:commandLink>
 
 				<p:inputText id="descricao" placeholder="O que precisa ser feito?"
-					value="#{registroController.registro.descricao}"
-					style="margin-left:10px;width:200px" />
+					value="#{registroController.registro.descricao}" 
+					style="margin-left:10px;width:300px; heigth: 110px;" />
 
-				<p:commandButton value="Adicionar"
-					action="#{registroController.insert}" update="form"
-					style="margin-left:5px; width:50px;" />
+				<p:commandButton value=" Add " action="#{registroController.insert}"
+					update="form" style="margin-left:5px; width:80px;" />
 
 			</p:panelGrid>
 
@@ -55,7 +48,7 @@
 				</p:column>
 
 
-				<p:column style="width:48px">
+				<p:column style="width:40px">
 					<p:commandLink action="#{registroController.deleteById(obj.id)}"
 						update="form">
 						<img src="resources/imagens/lixeira.png" />
@@ -64,21 +57,25 @@
 			</p:dataTable>
 
 
-			<p:toolbar style="width:500px; background:#363636">
+			<p:toolbar style="width:500px;">
 
 				<f:facet name="left">
-					<div id="testeSize" style="font-size:12px;" >
+					<div id="testeSize" style="font-size: 12px;">
 						<h:outputText id="display"
-							value="5"
-							style="margin-right:20px;margin-left:5px;" update="form" />
-						<p:commandButton value="Todos" action="#{registroController.init}"
+							value="#{registroController.numberStatusCompleted} item left"
+							style="margin-right:40px;margin-left:5px;" update="form" />
+						<p:commandButton value="All" action="#{registroController.init}"
 							style="margin-right:10px;" update="form" />
-						<p:commandButton value="Abertos" action="#{registroController.changeListActive}"
+						<p:commandButton value="Active"
+							action="#{registroController.changeListActive}"
 							style="margin-right:10px;" update="form" />
-						<p:commandButton value="Concluídos" action="#{registroController.changeListCompleted}"
+						<p:commandButton value="Completed"
+							action="#{registroController.changeListCompleted}"
 							style="margin-right:25px;" update="form" />
-						<p:commandButton value="Apagar Concluídos" action="#{registroController.deleteAllStatusCompleted}" 
-						 update="form" style="margin-right:8px;"/>
+						<p:commandButton value="Clear completed"
+							binding="#{registroController.buttonDeleteAll}"
+							action="#{registroController.deleteAllStatusCompleted}"
+							update="form" style="margin-left:5px;" />
 					</div>
 				</f:facet>
 

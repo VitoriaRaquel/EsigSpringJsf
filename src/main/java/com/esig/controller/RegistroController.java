@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.html.HtmlCommandButton;
 import javax.inject.Named;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class RegistroController {
 
 	private Registro registro = new Registro();
 	private List<Registro> listaRegistro;
+	private Integer numberStatusCompleted;
+	private HtmlCommandButton buttonDeleteAll;
 
 	@PostConstruct
 	public void init() {
@@ -37,8 +40,8 @@ public class RegistroController {
 	}
 
 	public void deleteAllStatusCompleted() {
-		this.repo.delete((repo.findByStatus(true)));
-		changeListCompleted();
+		this.repo.deleteAllStatusCompleted();
+		init();
 	}
 
 	public void changeListActive() {
@@ -73,6 +76,24 @@ public class RegistroController {
 
 	public void setListaRegistro(List<Registro> listaRegistro) {
 		this.listaRegistro = listaRegistro;
+	}
+
+	public Integer getNumberStatusCompleted() {
+		int number = this.repo.findByStatus(true).size();
+		buttonDeleteAll.setDisabled((number > 0) ? false : true);
+		return number;
+	}
+
+	public void setNumberStatusCompleted(Integer numberStatusCompleted) {
+		this.numberStatusCompleted = numberStatusCompleted;
+	}
+
+	public HtmlCommandButton getButtonDeleteAll() {
+		return buttonDeleteAll;
+	}
+
+	public void setButtonDeleteAll(HtmlCommandButton buttonDeleteAll) {
+		this.buttonDeleteAll = buttonDeleteAll;
 	}
 
 }
