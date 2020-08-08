@@ -6,83 +6,130 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+	<title>Esig</title>
+	<meta charset="utf-8" />
+
+
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+		crossorigin="anonymous" />
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
 
 </h:head>
 
 <h:body>
-	<div style="width: 550px; height: 800; margin: 0 auto 0 auto;">
-		<p:graphicImage library="imagens" name="esig.png" width="500px"
-			heigth="100px" />
-		<h:form id="form">
-			<p:panelGrid columns="2" style="heigth:100px; width:500px; ">
 
 
-				<p:inputText id="descricao" placeholder="O que precisa ser feito?"
-					value="#{registroController.registro.descricao}" 
-					style="margin-left:10px;width:300px; heigth: 110px;" />
+	<div class="container">
+		<div class=" col-md-6 offset-md-3">
+			<p:graphicImage library="imagens" name="esig.png" width="520px"
+				heigth="100px" />
+			<br />
 
-				<p:commandButton value=" Add " action="#{registroController.insert}"
-					update="form" style="margin-left:5px; width:80px;" />
+			<h:form id="form">
 
-			</p:panelGrid>
-
-			<p:dataTable value="#{registroController.listaRegistro}" var="obj"
-				style="width:500px">
-				<p:column style="width:22px">
-
-					<p:commandLink action="#{registroController.updateStatus(obj)}"
-						update="form">
-						<h:panelGroup rendered="#{obj.status eq false}">
-							<img src="resources/imagens/aberto_icon.png"
-								onmouseover="this.src='resources/imagens/ok_circle_icon.png'"
-								onmouseout="this.src='resources/imagens/aberto_icon.png'" />
-						</h:panelGroup>
-						<h:panelGroup rendered="#{obj.status eq true}">
-							<img src="resources/imagens/ok_circle_icon.png" />
-						</h:panelGroup>
-					</p:commandLink>
-				</p:column>
-
-				<p:column style="width:200px">
-					<p:outputLabel value="#{obj.descricao}" />
-				</p:column>
+				<div style="heigth: 120px; width: 550px; margin-bottom: 10px;">
 
 
-				<p:column style="width:40px">
-					<p:commandLink action="#{registroController.deleteById(obj.id)}"
-						update="form">
-						<img src="resources/imagens/lixeira.png" />
-					</p:commandLink>
-				</p:column>
-			</p:dataTable>
+					<p:inputText id="descricao" placeholder="O que precisa ser feito?"
+						value="#{registroController.registro.descricao}"
+						style="margin-left:15px;width:410px; margin-right:5px; heigth:220px;" />
+
+					<p:commandButton value="Insert" class="btn btn-outline-primary"
+						action="#{registroController.insert}" update="form" />
+
+				</div>
+
+				<p:dataTable value="#{registroController.listaRegistro}" var="obj"
+					style="width:550px;">
+					<p:column style="width:50px">
+
+						<h:commandLink scope="row"
+							action="#{registroController.updateStatus(obj)}" update="form">
+							<h:panelGroup rendered="#{obj.status eq false}">
+								<img src="resources/imagens/aberto_icon.png"
+									onmouseover="this.src='resources/imagens/ok_circle_icon.png'"
+									onmouseout="this.src='resources/imagens/aberto_icon.png'" />
+							</h:panelGroup>
+							<h:panelGroup rendered="#{obj.status eq true}">
+								<img src="resources/imagens/ok_circle_icon.png" />
+							</h:panelGroup>
+						</h:commandLink>
+					</p:column>
+
+					<p:column>
+						<p:outputLabel value="#{obj.descricao}" />
+					</p:column>
 
 
-			<p:toolbar style="width:500px;">
+					<p:column style="width:50px">
+						<h:commandLink action="#{registroController.deleteById(obj.id)}"
+							update="form">
+							<img src="resources/imagens/lixeira.png" />
+						</h:commandLink>
+					</p:column>
+				</p:dataTable>
 
-				<f:facet name="left">
-					<div id="testeSize" style="font-size: 12px;">
-						<h:outputText id="display"
-							value="#{registroController.numberStatusCompleted} item left"
-							style="margin-right:40px;margin-left:5px;" update="form" />
-						<p:commandButton value="All" action="#{registroController.init}"
-							style="margin-right:10px;" update="form" />
-						<p:commandButton value="Active"
-							action="#{registroController.changeListActive}"
-							style="margin-right:10px;" update="form" />
-						<p:commandButton value="Completed"
-							action="#{registroController.changeListCompleted}"
-							style="margin-right:25px;" update="form" />
-						<p:commandButton value="Clear completed"
-							binding="#{registroController.buttonDeleteAll}"
-							action="#{registroController.deleteAllStatusCompleted}"
-							update="form" style="margin-left:5px;" />
-					</div>
-				</f:facet>
 
-			</p:toolbar>
+				<p:toolbar style="width:550px; background:white;">
 
-		</h:form>
+					<f:facet name="left">
+						<div id="testeSize" style="font-size: 12px;">
+							<h:outputText id="display"
+								value="#{registroController.numberStatusCompleted} item left"
+								style="margin-right:40px;margin-left:8px; font-size:14px;"
+								update="form" />
+							<p:commandButton value="All" class="btn btn-primary btn-sm"
+								action="#{registroController.init}" style="margin-right:10px;"
+								update="form" />
+							<p:commandButton value="Active" class="btn btn-primary btn-sm"
+								action="#{registroController.changeListActive}"
+								style="margin-right:10px;" update="form" />
+							<p:commandButton value="Completed" class="btn btn-primary btn-sm"
+								action="#{registroController.changeListCompleted}"
+								style="margin-right:25px;" update="form" />
+							<p:commandButton value="Clear completed"
+								class="btn btn-danger btn-sm"
+								binding="#{registroController.buttonDeleteAll}"
+								action="#{registroController.deleteAllStatusCompleted}"
+								update="form" style="margin-left:5px;" />
+						</div>
+					</f:facet>
+
+				</p:toolbar>
+
+			</h:form>
+
+
+
+
+			<div class="alert alert-info"
+				style="clear: text-align: center; both; border-top: 1px solid #606060; margin-top: 100px;"
+				role="alert">
+				<p style="text-align: center;">
+				Copyright &copy;2020 - by Weslley Leocádio <a href="https://github.com/WesleyLeocadio"
+					class="alert-link">GitHub</a>.
+			</p>
+			</div>
+
+		</div>
 	</div>
+
+
+
+
+
 </h:body>
 
 
