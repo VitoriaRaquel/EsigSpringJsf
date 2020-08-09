@@ -20,3 +20,12 @@ ao exemplo informado no site.
 - Bootstrap
 - Heroku
 - single page app utilizando react - [FRONTEND](https://github.com/WesleyLeocadio/EsigSpaReact)
+
+### 💻 single page app utilizando react
+Technologies used:
+- React;
+- Axios.
+
+<p align="center">
+<img src="https://j.gifs.com/zvj8oZ.gif" float="center"/>
+</p>
